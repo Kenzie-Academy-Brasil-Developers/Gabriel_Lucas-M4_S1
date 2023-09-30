@@ -11,7 +11,7 @@ export const createProduct = (req: Request, res: Response) => {
     }
 
     if (findProduct) {
-        return res.status(400).json({ message: "Product already registered." });
+        return res.status(409).json({ message: "Product already registered." });
     }
 
     const expirationDate = new Date();
@@ -21,14 +21,14 @@ export const createProduct = (req: Request, res: Response) => {
         name: req.body.name,
         price: req.body.price,
         weight: req.body.weight,
-        section: req.body.section,
         calories: req.body.calories,
+        section: req.body.section,
         expirationDate: expirationDate
     };
 
     market.push(newProduct);
 
-    return res.status(201).json({ message: "Produto criado com sucesso!", product: newProduct });
+    return res.status(201).json(newProduct);
 }
 
 
@@ -41,7 +41,7 @@ export const getProduct = (req: Request, res: Response) => {
     const id = Number(req.params.id)
     const product = market.find(p => p.id === id)
     if (product?.id) {
-        return res.status(200).json( {product: product} )
+        return res.status(200).json(product)
     } else {
         return res.status(404).json( { message: "Product not found." } )
     }
@@ -56,7 +56,7 @@ export const changeProduct = (req: Request, res: Response) => {
     if (index !== -1) {
         const findProduct = market.find(product => product.name === req.body.name);
         if (findProduct) {
-            return res.status(400).json({ message: "Product already registered." });
+            return res.status(409).json({ message: "Product already registered." });
         }
         market[index] = { id: market[index].id,
             name: req.body.name ? req.body.name:market[index].name,
@@ -68,7 +68,7 @@ export const changeProduct = (req: Request, res: Response) => {
     
         return res.status(200).json(market[index])
     } else {
-        return res.status(404).json( { message: "Produtc not found." } )
+        return res.status(404).json( { message: "Product not found." } )
     }
 }
 
