@@ -11,7 +11,7 @@ export const createProduct = (req: Request, res: Response) => {
     }
 
     if (findProduct) {
-        return res.status(400).json({ message: "Já existe um produto com este nome!" });
+        return res.status(400).json({ message: "Product already registered." });
     }
 
     const expirationDate = new Date();
@@ -43,7 +43,7 @@ export const getProduct = (req: Request, res: Response) => {
     if (product?.id) {
         return res.status(200).json( {product: product} )
     } else {
-        return res.status(404).json( { message: "Produto não encontrado" } )
+        return res.status(404).json( { message: "Product not found." } )
     }
 
 }
@@ -56,19 +56,19 @@ export const changeProduct = (req: Request, res: Response) => {
     if (index !== -1) {
         const findProduct = market.find(product => product.name === req.body.name);
         if (findProduct) {
-            return res.status(400).json({ message: "Já existe um produto com este nome!" });
+            return res.status(400).json({ message: "Product already registered." });
         }
         market[index] = { id: market[index].id,
-            name: req.body.name,
-            price: req.body.price,
-            weight: req.body.weight,
+            name: req.body.name ? req.body.name:market[index].name,
+            price: req.body.price ? req.body.price:market[index].price,
+            weight: req.body.weight ? req.body.weight:market[index].weight,
             section: market[index].section,
-            calories: req.body.calories,
+            calories: req.body.calories ? req.body.calories:market[index].calories,
             expirationDate: market[index].expirationDate }
     
-        return res.status(200).json(market)
+        return res.status(200).json(market[index])
     } else {
-        return res.status(404).json( { message: "Produto não encontrado" } )
+        return res.status(404).json( { message: "Produtc not found." } )
     }
 }
 
@@ -83,6 +83,6 @@ export const deleteProduct = (req: Request, res: Response) => {
         market.splice(index, 1)
         return res.status(204).json("NO CONTENT")
     } else {
-        return res.status(404).json( { message: "Produto não encontrado" } )
+        return res.status(404).json( { message: "Product not found." } )
     }
 }
