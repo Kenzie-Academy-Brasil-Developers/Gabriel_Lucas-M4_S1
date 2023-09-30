@@ -1,3 +1,3 @@
 import { IProduct } from "./interfaces";
 
-export const productsDatabase: IProduct[] = [];
+export const market: IProduct[] = [];

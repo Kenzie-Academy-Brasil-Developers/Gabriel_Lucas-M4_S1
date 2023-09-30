@@ -5,5 +5,5 @@ export interface IProduct{
     weight: number,
     section: string,
     calories: number,
-    expirationDate: number
+    expirationDate: Date
 }
