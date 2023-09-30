@@ -67,8 +67,8 @@ Para a tipagem dos produtos deverá ser criada a seguinte interface:
   - Será enviado na menor casa possível, ou seja, em **gramas**.
 - **section**:
   - Tipo: **_"food"_** ou **_"cleaning"_**;
-  - Deverá ser uma string enviada no momento criação.
 - **calories**:
+  - Deverá ser uma string enviada no momento criação.
   - Tipo: **number**, **null** e **undefined**;
   - Representa as **calorias** do produto.
 - **expirationDate**:
